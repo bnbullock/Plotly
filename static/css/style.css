@@ -1,0 +1,11 @@
+body {
+  color: #00008B;
+  font-family: "Arial";
+}
+
+.jumbotron {
+    background-image: url("../images/image_title.jpg");
+    background-size: 100% 100%;
+    text-align: center;
+    opacity: 1;
+  }

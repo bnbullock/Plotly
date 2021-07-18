@@ -3,7 +3,7 @@ function init() {
   var selector = d3.select("#selDataset");
 
   // Use the list of sample names to populate the select options
-  d3.json("samples.json").then((data) => {
+  d3.json("static/js/samples.json").then((data) => {
     var sampleNames = data.names;
 
     sampleNames.forEach((sample) => {
@@ -32,7 +32,7 @@ function optionChanged(newSample) {
 
 // Demographics Panel 
 function buildMetadata(sample) {
-  d3.json("samples.json").then((data) => {
+  d3.json("static/js/samples.json").then((data) => {
     var metadata = data.metadata;
     // Filter the data for the object with the desired sample number
     var resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
@@ -56,15 +56,19 @@ function buildMetadata(sample) {
 // 1. Create the buildCharts function.
 function buildCharts(sample) {
   // 2. Use d3.json to load and retrieve the samples.json file 
-  d3.json("samples.json").then((data) => {
+  d3.json("static/js/samples.json").then((data) => {
 
     // 3. Create a variable that holds the samples array. 
     var allSamples = data.samples;
+
+     // Gauge Chart
     var metadata = data.metadata;
 
     // 4. Create a variable that filters the samples for the object with the desired sample number.
     var resultSamples = allSamples.filter(sampleObj => sampleObj.id == sample);
     console.log(resultSamples);
+
+    // Gauge Chart
     var resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
     console.log(resultSamples);
 
@@ -72,6 +76,7 @@ function buildCharts(sample) {
     var resultOne = resultSamples[0];
     console.log(resultOne);
 
+     // Gauge Chart
     var result = resultArray[0];
     console.log(result);
 
@@ -80,6 +85,7 @@ function buildCharts(sample) {
     var otu_labels = resultOne.otu_labels;
     var sample_values = resultOne.sample_values;
 
+     // Gauge Chart
     var washFreq = parseFloat(result.wfreq).toFixed(2);
     console.log(washFreq);
 
@@ -87,35 +93,40 @@ function buildCharts(sample) {
     // Hint: Get the the top 10 otu_ids and map them in descending order  
     //  so the otu_ids with the most bacteria are last. 
 
-    otu_ids.sort(function(a, b){return b-a});
+   //otu_ids.sort(function(a, b){return b-a});
+
+    // yticks = otu_ids.slice(0,10).map(otu_ids => 'OTU ${otuID}'.reverse());
+    var yticks = otu_ids.slice(0, 10).map(otuID => `OTU ${otuID}`);//.reverse();
 
     // Slice the first 10 objects for plotting
-    otu_ids = otu_ids.slice(0, 9);
-    console.log(otu_ids);
+    //otu_ids = otu_ids.slice(0, 9);
+    console.log(yticks);
 
     // Reverse the array due to Plotly's defaults
-    otu_ids = otu_ids.reverse();
+    //otu_ids = otu_ids.reverse();
 
-    var yticks = [];
-    for (var i = 0; i <= 9 ; i++) {
-        yticks[i] = "OTU " + String(otu_ids[i])
-    }
+   // var yticks = [];
+  //  for (var i = 0; i <= 9 ; i++) {
+   //     yticks[i] = "OTU " + String(otu_ids[i])
+   // }
 
     // 8. Create the trace for the bar chart. 
-    var trace1 = {
-      x:sample_values,
-      y:yticks,
-      text: otu_labels,
-      type: "bar",
-      orientation: "h"
-    };
 
-    var barData = [trace1];
+    var barData = [
+      {
+        x:sample_values,
+        y:yticks,
+        text: otu_labels,
+        type: "bar",
+        orientation: "h"
+      }
+    ];
 
     // 9. Create the layout for the bar chart. 
     var barLayout = {
       title: "Top 10 Bacteria Cultures Found",
-      font: { color: "darkblue", family: "Arial" }
+      font: { color: "darkblue", family: "Arial"},
+      yaxis: {autorange: "reversed"} 
     };
 
     // 10. Use Plotly to plot the data with the layout. 
@@ -132,9 +143,18 @@ function buildCharts(sample) {
         text: otu_labels,
         mode: "markers",
         marker: {
-          color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)', 'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
+          //color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)', 'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
           //colorscale: [1, 0.8, 0.6, 0.4],
-          size: [40, 60, 80, 100]
+          size: sample_values,
+          color: otu_ids,
+          //colorscale: 'Blackbody',
+          // colorscale: "Jet",
+          //colorscale: 'Earth'
+          colorscale: 'Portland'
+          //colorscale: 'Bluered',
+          //type: 'heatmap'
+
+          //size: [40, 60, 80, 100]
         }
       }
     ];
@@ -144,11 +164,12 @@ function buildCharts(sample) {
 
     var bubbleLayout = {
       title: 'Bacteria Cultures Per Sample',
-      font: { color: "darkblue", family: "Arial" }
-      //showlegend: false,
-      //xaxis: "OTU ID",
-      //height: 600,
-      //width: 600
+      font: { color: "darkblue", family: "Arial" },
+      showlegend: false,
+      height: 600,
+      width: 1138,
+      paper_bgcolor: "Linen",
+      xaxis: {title: { text: 'OTU ID'}}
     };
     
     // 3. Use Plotly to plot the data with the layout.
@@ -180,10 +201,10 @@ function buildCharts(sample) {
         
     // 5. Create the layout for the gauge chart.
     var gaugeLayout = { 
-          width: 500, 
-          height: 400, 
+          width: 465, 
+          height: 500, 
           margin: { t: 0, b: 0 }, 
-          paper_bgcolor: "lavender",
+          //paper_bgcolor: "Azure",
           font: { color: "darkblue", family: "Arial" }
     };
     

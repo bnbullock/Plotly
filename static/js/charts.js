@@ -93,22 +93,7 @@ function buildCharts(sample) {
     // Hint: Get the the top 10 otu_ids and map them in descending order  
     //  so the otu_ids with the most bacteria are last. 
 
-   //otu_ids.sort(function(a, b){return b-a});
-
-    // yticks = otu_ids.slice(0,10).map(otu_ids => 'OTU ${otuID}'.reverse());
-    var yticks = otu_ids.slice(0, 10).map(otuID => `OTU ${otuID}`);//.reverse();
-
-    // Slice the first 10 objects for plotting
-    //otu_ids = otu_ids.slice(0, 9);
-    console.log(yticks);
-
-    // Reverse the array due to Plotly's defaults
-    //otu_ids = otu_ids.reverse();
-
-   // var yticks = [];
-  //  for (var i = 0; i <= 9 ; i++) {
-   //     yticks[i] = "OTU " + String(otu_ids[i])
-   // }
+    var yticks = otu_ids.slice(0, 10).map(otuID => `OTU ${otuID}`);
 
     // 8. Create the trace for the bar chart. 
 
@@ -118,13 +103,23 @@ function buildCharts(sample) {
         y:yticks,
         text: otu_labels,
         type: "bar",
-        orientation: "h"
+        orientation: "h",
+        marker: {
+          //color: 'rgb(158,202,225)',
+          color: 'rgb(250,146,28)',
+          opacity: 0.6,
+          line: {
+            //color: 'rgb(8,48,107)',
+            color: 'rgb(5,28,85)',
+            width: 1.5
+          }
+        }
       }
     ];
 
     // 9. Create the layout for the bar chart. 
     var barLayout = {
-      title: "Top 10 Bacteria Cultures Found",
+      title: "<b>Top 10 Bacteria Cultures Found</b>",
       font: { color: "darkblue", family: "Arial"},
       yaxis: {autorange: "reversed"} 
     };
@@ -134,7 +129,7 @@ function buildCharts(sample) {
 
     // Deliverable 2
         
-    // 1. Create the trace for the bubble chart.
+    // 1. Create the data for the bubble chart.
 
     var bubbleData = [
       {
@@ -143,18 +138,10 @@ function buildCharts(sample) {
         text: otu_labels,
         mode: "markers",
         marker: {
-          //color: ['rgb(93, 164, 214)', 'rgb(255, 144, 14)', 'rgb(44, 160, 101)', 'rgb(255, 65, 54)'],
-          //colorscale: [1, 0.8, 0.6, 0.4],
           size: sample_values,
           color: otu_ids,
-          //colorscale: 'Blackbody',
-          // colorscale: "Jet",
-          //colorscale: 'Earth'
-          colorscale: 'Portland'
-          //colorscale: 'Bluered',
-          //type: 'heatmap'
-
-          //size: [40, 60, 80, 100]
+          colorscale: 'Portland',
+          type: 'heatmap'
         }
       }
     ];
@@ -163,12 +150,13 @@ function buildCharts(sample) {
     // 2. Create the layout for the bubble chart.
 
     var bubbleLayout = {
-      title: 'Bacteria Cultures Per Sample',
+      title: '<b>Bacteria Cultures Per Sample</b>',
       font: { color: "darkblue", family: "Arial" },
       showlegend: false,
-      height: 600,
+      height: 610,
       width: 1138,
-      paper_bgcolor: "Linen",
+      plot_bgcolor:"SeaShell",
+      paper_bgcolor: "SeaShell",
       xaxis: {title: { text: 'OTU ID'}}
     };
     
@@ -177,7 +165,7 @@ function buildCharts(sample) {
 
     // Deliverable 3
 
-    // 4. Create the trace for the gauge chart.
+    // 4. Create the data for the gauge chart.
     var gaugeData = [
       {
         domain: { x: [0, 10], y: [0, 10] },
@@ -203,8 +191,7 @@ function buildCharts(sample) {
     var gaugeLayout = { 
           width: 465, 
           height: 500, 
-          margin: { t: 0, b: 0 }, 
-          //paper_bgcolor: "Azure",
+          margin: { t: 0, b: 0 },
           font: { color: "darkblue", family: "Arial" }
     };
     

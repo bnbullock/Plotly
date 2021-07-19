@@ -7,5 +7,19 @@ body {
     background-image: url("../images/image_title.jpg");
     background-size: 100% 100%;
     text-align: center;
-    opacity: 1;
-  }
+    opacity: .8;
+}
+
+.well {
+  background-color: azure;
+  border-color: darkblue;
+  font-family: "Arial";
+}
+
+.panel-primary {
+  background: darkblue;
+  background-color: azure;
+  border-color: darkblue;
+  font-family: "Arial";
+  color: darkblue;
+}

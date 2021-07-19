@@ -66,19 +66,15 @@ function buildCharts(sample) {
 
     // 4. Create a variable that filters the samples for the object with the desired sample number.
     var resultSamples = allSamples.filter(sampleObj => sampleObj.id == sample);
-    console.log(resultSamples);
 
     // Gauge Chart
     var resultArray = metadata.filter(sampleObj => sampleObj.id == sample);
-    console.log(resultSamples);
 
     //  5. Create a variable that holds the first sample in the array.
     var resultOne = resultSamples[0];
-    console.log(resultOne);
 
      // Gauge Chart
     var result = resultArray[0];
-    console.log(result);
 
     // 6. Create variables that hold the otu_ids, otu_labels, and sample_values.
     var otu_ids = resultOne.otu_ids;
@@ -87,7 +83,6 @@ function buildCharts(sample) {
 
      // Gauge Chart
     var washFreq = parseFloat(result.wfreq).toFixed(2);
-    console.log(washFreq);
 
     // 7. Create the yticks for the bar chart.
     // Hint: Get the the top 10 otu_ids and map them in descending order  
@@ -105,11 +100,9 @@ function buildCharts(sample) {
         type: "bar",
         orientation: "h",
         marker: {
-          //color: 'rgb(158,202,225)',
           color: 'rgb(250,146,28)',
           opacity: 0.6,
           line: {
-            //color: 'rgb(8,48,107)',
             color: 'rgb(5,28,85)',
             width: 1.5
           }
@@ -174,7 +167,12 @@ function buildCharts(sample) {
         type: "indicator",
         mode: "gauge+number",
         gauge: {
-          axis: { range: [null, 10] },
+          axis: { range: [null, 10], 
+                  tickmode: "linear", 
+                  tick0: 0, 
+                  dtick: 2,
+                  tickcolor: "#00008B"
+                },
           steps: [
             { range: [0, 2], color: "red" },
             { range: [2, 4], color: "orange" },

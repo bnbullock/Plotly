@@ -20,12 +20,12 @@ Our Client has asked us to take bacterial sample data collected from the belly b
 ## Results
 
 - The dashboard as presented in the webpage is shown below and displays the first individual with "ID: 940" in our dataset. The "Test Subject ID No." can be chosen from the drop down list of participants which updates the demographic information and related charts for each individual.
-- 
+
 ![Website](/static/images/dashboard.png)
 
 ### Horizontal Bar Chart
 - The horizontal bar chart shows the top 10 bacterial species found in the same data for the given individual identified from above.
-  
+
 ![Website](static/images/hbar.png)
 
 ### Bubble Chart

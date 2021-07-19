@@ -20,6 +20,7 @@ Our Client has asked us to take bacterial sample data collected from the belly b
 ## Results
 
 - The dashboard as presented in the webpage is shown below and displays the first individual with "ID: 940" in our dataset. The "Test Subject ID No." can be chosen from the drop down list of participants which updates the demographic information and related charts for each individual.
+- 
 ![Website](/static/images/dashboard.png)
 
 ### Horizontal Bar Chart
@@ -46,7 +47,7 @@ Our Client has asked us to take bacterial sample data collected from the belly b
     - The "jumbotron" title was modified with a background image of a bacterial-like culture.
     - The coloring of the "panel" and "well" were modified and both outlined with dark blue.
     - The "body" color was adjusted to dark blue and the font set to Arial.
-  - The bar chart color was changed and each bar outlined with a marker color.
+  - The horizontal bar chart color was changed and each individual bar was outlined with a marker color.
 
 ------------------------------------------------------------------------------------------------------------
 
